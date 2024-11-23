@@ -1,0 +1,79 @@
+.password-container {
+    font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+    color: #4A4A4A;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 97vh;
+    background: linear-gradient(135deg, #b1e3fb 0%, #0d7fdd 85%);
+    
+}
+
+  .logo {
+    width: 95px;
+    height: 95px;
+  }
+  
+  .password-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .password-input {
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    width: 300px;
+    padding-right: 40px; /* Make space for the eye icon */
+  }
+  
+  .eye-icon {
+    position: absolute;
+    right: 95px; 
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  button {
+    padding: 10px 20px;
+    background-image: linear-gradient(to right, #0625a0, #92d7f7 );
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .password-strength {
+    margin-top: 20px;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @media (max-width: 768px) {
+    .password-input {
+      flex-direction: column;
+      width: 90%;
+    }
+    .eye-icon {
+        left: 160px;
+      }
+  
+    button {
+      width: 50%;
+      margin-top: 8px;
+    }
+  }
+  
