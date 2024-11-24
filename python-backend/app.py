@@ -6,11 +6,11 @@ from password_functions import *
 app = Flask(__name__)
 CORS(app)  
 
-@app.route('/password_suggestions', methods=['POST'])
-def analyze_password():
+@app.route('/password_suggestions', methods=['GET'])
+def password_suggestion():
     suggested_passwords = generate_random_passwords()
     return jsonify({
-        'suggested_password': suggested_passwords
+        'suggested_passwords': suggested_passwords
     })
 
 
