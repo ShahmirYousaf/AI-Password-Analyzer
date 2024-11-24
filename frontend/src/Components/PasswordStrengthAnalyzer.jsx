@@ -58,7 +58,7 @@ const PasswordStrengthAnalyzer = () => {
           <p>Suggestions: {analysisResults.suggestions}</p>
           <p>Feedback: {analysisResults.feedback}</p>
           <p>Levenshtein Distance: {analysisResults.levenshtein_distance} </p>
-          <p>Most Similar Password: {analysisResults.most_similar_password}</p>
+          <p>Most Similar Compromised Password: {analysisResults.most_similar_password}</p>
           <p>Status: {analysisResults.status}</p>
         </div>
       )}

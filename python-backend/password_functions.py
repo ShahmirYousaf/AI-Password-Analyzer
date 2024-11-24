@@ -110,3 +110,42 @@ def generate_secure_suggestions(password, num_suggestions=3):
                 suggestions.append(enhanced)
                 pbar.update(1)
     return suggestions
+
+def generate_random_passwords():
+
+    num_passwords = 3
+    min_length = 8
+    max_length = 16
+    max_specials = 0
+    
+    uppercase_letters = string.ascii_uppercase
+    lowercase_letters = string.ascii_lowercase
+    digits = string.digits
+    special_characters = ''.join(c for c in string.punctuation if c not in "(){}[]<>;,`~\"")
+
+    passwords_suggestions = []
+    
+    for _ in range(num_passwords):
+        length = random.randint(min_length, max_length)
+        
+        mandatory_chars = [
+            random.choice(uppercase_letters),
+            random.choice(lowercase_letters),
+            random.choice(digits),
+            random.choice(special_characters),
+        ]
+        
+        remaining_length = length - len(mandatory_chars)        
+        num_specials = min(max_specials, remaining_length)
+        special_chars = random.choices(special_characters, k=num_specials)
+        
+        remaining_chars = random.choices(
+            uppercase_letters + lowercase_letters + digits,
+            k=remaining_length - num_specials
+        )
+        
+        password_list = mandatory_chars + special_chars + remaining_chars        
+        random.shuffle(password_list)
+        passwords_suggestions.append(''.join(password_list))
+    
+    return passwords_suggestions
