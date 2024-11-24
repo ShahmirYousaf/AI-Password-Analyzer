@@ -21,3 +21,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+/python-backend/password_strength_roberta
+/python-backend/fasttext_rockyou.bin
+/python-backend/rockyou_embeddings.npy
+/python-backend/rockyou.txt

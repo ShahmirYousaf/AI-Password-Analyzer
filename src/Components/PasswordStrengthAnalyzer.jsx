@@ -20,11 +20,10 @@ const PasswordStrengthAnalyzer = () => {
 
   const checkPasswordStrength = async () => {
     try {
-      // Replace 'http://localhost:5000/analyze_password' with your actual Flask server URL
       const response = await axios.post('http://localhost:5000/analyze_password', { password });
       if (response.data) {
         setPasswordStrength(response.data.strength);
-        setAnalysisResults(response.data); // Store all data if you want to display more info
+        setAnalysisResults(response.data); 
       }
     } catch (error) {
       console.error('Failed to analyze password:', error);
@@ -54,11 +53,13 @@ const PasswordStrengthAnalyzer = () => {
           <p>Password Strength: {passwordStrength}</p>
         </div>
       )}
-      {/* Optionally display more results from analysis */}
       {analysisResults.feedback && (
         <div className="additional-results">
+          <p>Suggestions: {analysisResults.suggestions}</p>
           <p>Feedback: {analysisResults.feedback}</p>
-          {/* Add more display elements as needed based on your API response */}
+          <p>Levenshtein Distance: {analysisResults.levenshtein_distance} </p>
+          <p>Most Similar Password: {analysisResults.most_similar_password}</p>
+          <p>Status: {analysisResults.status}</p>
         </div>
       )}
     </div>

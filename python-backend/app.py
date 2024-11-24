@@ -1,30 +1,37 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from password_utils import (classify_password, check_password_similarity, rule_based_feedback,
-                            generate_secure_suggestions, load_models_and_data)
+
+from password_functions import *
 
 app = Flask(__name__)
-CORS(app) 
+CORS(app)  
 
-# Load models on start
-models_and_data = load_models_and_data()
+
 
 @app.route('/analyze_password', methods=['POST'])
 def analyze_password():
-    data = request.json
-    password = data['password']
-    roberta_model, roberta_tokenizer, fasttext_model, compromised_embeddings, compromised_passwords = models_and_data
+    data = request.get_json()
+    input_password = data['password']
+    
+    
+    strength = classify_password(input_password, roberta_model, roberta_tokenizer)
+    most_similar_password, similarity_percentage, status, lowest_distance = check_password_similarity(
+        input_password, fasttext_model, compromised_embeddings, compromised_passwords
+    )
+    feedback = rule_based_feedback(input_password, status)
+    suggestions = generate_secure_suggestions(
+        input_password, fasttext_model, compromised_embeddings, compromised_passwords
+    ) if status != "Password Safe" else []
 
-    strength = classify_password(password, roberta_model, roberta_tokenizer)
-    similarity_info = check_password_similarity(password, fasttext_model, compromised_embeddings, compromised_passwords)
-    feedback = rule_based_feedback(password, similarity_info[2])  # Using status for feedback
-
-    response = {
-        "strength": strength,
-        "similarity": similarity_info,
-        "feedback": feedback
-    }
-    return jsonify(response)
+    return jsonify({
+        'input_password': input_password,
+        'strength': strength,
+        'most_similar_password': most_similar_password,
+        'levenshtein_distance': f"{lowest_distance:.2f}%",
+        'status': status,
+        'feedback': feedback,
+        'suggestions': suggestions
+    })
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) 
