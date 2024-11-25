@@ -4,7 +4,7 @@ The AI Password Strength Analyzer is a web application designed to assess passwo
 
 ## Project Structure
 
-- `ai-password-analyzer/`: Contains all React frontend code.
+- `frontend/`: Contains all React frontend code.
 - `python-backend/`: Contains the Flask application (`app.py`) and associated Python modules including `password_functions.py`.
 
 ## Prerequisites
