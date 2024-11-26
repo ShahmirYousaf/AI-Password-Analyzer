@@ -6,6 +6,7 @@ import axios from "axios";
 const PasswordStrengthAnalyzer = () => {
   const [password, setPassword] = useState("");
   const [passwordStrength, setPasswordStrength] = useState("");
+  const [styleCheck, setStyleCheck] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [analysisResults, setAnalysisResults] = useState({});
   const [additionalSuggestions, setAdditionalSuggestions] = useState([]);
@@ -26,6 +27,7 @@ const PasswordStrengthAnalyzer = () => {
       );
       if (response.data) {
         setPasswordStrength(response.data.strength);
+        setStyleCheck(true);
         setAnalysisResults(response.data);
       }
     } catch (error) {
@@ -42,6 +44,7 @@ const PasswordStrengthAnalyzer = () => {
       if (response.data) {
         console.log(response.data.suggested_passwords)
         setAdditionalSuggestions(response.data.suggested_passwords);
+        setStyleCheck(false);
         setAnalysisResults({});
       }
     } catch (error) {
@@ -50,9 +53,9 @@ const PasswordStrengthAnalyzer = () => {
   };
 
   return (
-    <div className={`password-container ${passwordStrength ? 'password-filled' : 'password-empty'}`}>
+    <div className={`password-container ${styleCheck ? 'password-filled' : 'password-empty'}`}>
       <img className="logo" alt="Error" src={AIlogo} />
-      <h1>AI Password Strength Analyzer</h1>
+      <h1 className="main-heading">AI Password Strength Analyzer</h1>
       <div className="password-input-wrapper">
         <input
           type={isPasswordVisible ? "text" : "password"}
