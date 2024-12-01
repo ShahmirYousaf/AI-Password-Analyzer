@@ -47,7 +47,7 @@ def check_password_similarity(input_password, top_n=100):
             best_password = candidate
 
     similarity_percentage = max(similarities) * 100
-    status = "Password Compromised" if lowest_distance < 0.7 else "Password Safe"
+    status = "Password Compromised" if lowest_distance < 0.4 else "Password Safe"
     return best_password, similarity_percentage, status, (1 - lowest_distance) * 100
 
 # Function for rule-based feedback on password
@@ -92,7 +92,7 @@ def enhance_password(password):
     return "".join(enhanced_password)
 
 # Function to check if password is safe
-def is_password_safe_with_levenshtein(password, threshold=0.7):
+def is_password_safe_with_levenshtein(password, threshold=0.5):
     for compromised_password in compromised_passwords:
         distance = Levenshtein.distance(password, compromised_password) / max(len(password), len(compromised_password))
         if distance < threshold:
@@ -105,7 +105,7 @@ def generate_secure_suggestions(password, num_suggestions=3):
     with tqdm(total=num_suggestions, desc="Suggestions Generated") as pbar:
         while len(suggestions) < num_suggestions:
             enhanced = enhance_password(password)
-            is_safe, distance = is_password_safe_with_levenshtein(enhanced, threshold=0.6)
+            is_safe, distance = is_password_safe_with_levenshtein(enhanced, threshold=0.4)
             if is_safe:
                 suggestions.append(enhanced)
                 pbar.update(1)
